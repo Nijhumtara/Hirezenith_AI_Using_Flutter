@@ -9,7 +9,7 @@ class AIService {
       body: jsonEncode({
         "model": "phi3",
         "prompt": _buildPrompt(text),
-        "stream": false
+        "stream": false,
       }),
     );
 
@@ -24,13 +24,20 @@ class AIService {
     final cleanedJson = _extractAndFixJson(rawText);
 
     final parsed = jsonDecode(cleanedJson);
+    int score = parsed["score"] is int
+        ? parsed["score"]
+        : int.tryParse(parsed["score"].toString()) ?? 50; // default 50 not 0
+
+    // Clamp between 1-100
+    score = score.clamp(1, 100);
 
     // 🔥 Guarantee no null values
     return {
-      "score": parsed["score"] ?? 0,
+      "score": score,
       "strengths": parsed["strengths"] ?? "No strengths identified.",
       "weaknesses": parsed["weaknesses"] ?? "No weaknesses found.",
-      "missing_skills": parsed["missing_skills"] ?? "No missing skills detected.",
+      "missing_skills":
+          parsed["missing_skills"] ?? "No missing skills detected.",
       "suggestions": parsed["suggestions"] ?? "No suggestions available.",
     };
   }
