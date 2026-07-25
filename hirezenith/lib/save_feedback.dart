@@ -26,7 +26,7 @@ class SupabaseService {
 
     if (existing != null) return;
     await client.from('resume_feedback').insert({
-      'user_id': userId, // 🔥 REQUIRED for RLS
+      'user_id': userId, 
       'resume_id': resumeId,
       'file_name': fileName,
 
@@ -47,7 +47,7 @@ class SupabaseService {
     final response = await client
         .from('resume_feedback')
         .select()
-        .eq('user_id', userId) // 🔥 important
+        .eq('user_id', userId) 
         .eq('resume_id', resumeId)
         .order('created_at', ascending: false);
 

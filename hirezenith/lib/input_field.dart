@@ -34,7 +34,7 @@ class InputBox extends StatelessWidget {
         hintText: hint,
         prefixIcon: Icon(icon),
         errorStyle: TextStyle(
-          color: Colors.black, // 👈 validation error color
+          color: Colors.black, // validation error color
           fontSize: 13,
         ),
         suffixIcon: isPassword

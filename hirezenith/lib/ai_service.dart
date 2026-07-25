@@ -26,12 +26,12 @@ class AIService {
     final parsed = jsonDecode(cleanedJson);
     int score = parsed["score"] is int
         ? parsed["score"]
-        : int.tryParse(parsed["score"].toString()) ?? 50; // default 50 not 0
+        : int.tryParse(parsed["score"].toString()) ?? 50;
 
     // Clamp between 1-100
     score = score.clamp(1, 100);
 
-    // 🔥 Guarantee no null values
+    // Guarantee no null values
     return {
       "score": score,
       "strengths": parsed["strengths"] ?? "No strengths identified.",
@@ -42,7 +42,7 @@ class AIService {
     };
   }
 
-  /// ✅ Strong prompt to force structure
+  /// Strong prompt to force structure
   static String _buildPrompt(String text) {
     return """
 You are a strict JSON generator.
@@ -71,7 +71,7 @@ $text
 """;
   }
 
-  /// ✅ Extract + repair broken JSON from LLM
+  /// Extract + repair broken JSON from LLM
   static String _extractAndFixJson(String raw) {
     // Remove markdown if model added it
     raw = raw.replaceAll("```json", "").replaceAll("```", "");
@@ -86,7 +86,7 @@ $text
 
     String jsonString = raw.substring(start, end + 1);
 
-    // 🔥 FIX COMMON LLM JSON ERRORS
+    // FIX COMMON LLM JSON ERRORS
 
     // Remove trailing commas
     jsonString = jsonString.replaceAll(RegExp(r',\s*}'), '}');

@@ -135,7 +135,7 @@ class _ResumeDetailsState extends State<ResumeDetails> {
                     onPressed: () async {
                       setState(() => isAnalyzing = true); // start loading state
 
-                      // 🔵 Show loading dialog
+                      // Show loading dialog
                       showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -144,29 +144,29 @@ class _ResumeDetailsState extends State<ResumeDetails> {
                       );
 
                       try {
-                        /// 1️⃣ Extract text from PDF
+                        /// Extract text from PDF
                         String text = await extractPdfText(widget.file.bytes!);
 
-                        /// 2️⃣ Send to Ollama AI
+                        /// Send to Ollama AI
                         final analysis = await AIService.analyzeResume(text);
 
-                        /// 3️⃣ Save to Supabase
+                        /// Save to Supabase
                         await SupabaseService.saveFeedback(
                           widget.resumeId,
                           widget.file.name,
                           analysis,
                         );
 
-                        /// ❗❗ CLOSE THE LOADING DIALOG
+                        /// CLOSE THE LOADING DIALOG
                         Navigator.pop(context);
 
-                        /// 4️⃣ Update state
+                        /// Update state
                         setState(() {
                           aiFeedback = analysis;
                           isAnalyzing = false;
                         });
 
-                        /// 5️⃣ Navigate to feedback page
+                        /// Navigate to feedback page
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -174,7 +174,7 @@ class _ResumeDetailsState extends State<ResumeDetails> {
                           ),
                         );
                       } catch (e) {
-                        /// ❗ ALSO CLOSE DIALOG IF ERROR HAPPENS
+                        /// ALSO CLOSE DIALOG IF ERROR HAPPENS
                         Navigator.pop(context);
 
                         setState(() => isAnalyzing = false);

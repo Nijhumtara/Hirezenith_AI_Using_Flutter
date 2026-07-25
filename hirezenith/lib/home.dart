@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
     allowedExtensions: ['pdf'],
-    withData: true, // ⭐ THIS IS REQUIRED FOR WEB
+    withData: true, 
   );
 
   if (result != null) {

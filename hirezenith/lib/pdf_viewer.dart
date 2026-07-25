@@ -21,7 +21,7 @@ class PDFViewerPage extends StatelessWidget {
       ),
       body: bytes == null
           ? const Center(child: Text("Failed to load PDF"))
-          : SfPdfViewer.memory(bytes!), // ✅ Works on ALL platforms
+          : SfPdfViewer.memory(bytes!), // Works on ALL platforms
     );
   }
 }
